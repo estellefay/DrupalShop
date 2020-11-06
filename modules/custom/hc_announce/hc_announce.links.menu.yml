@@ -1,0 +1,5 @@
+hc_announce.announcement_settings_form:
+  title: Announcement
+  parent: system.admin_config
+  description: 'Announcement settings.'
+  route_name: hc_announce.announcement_settings_form

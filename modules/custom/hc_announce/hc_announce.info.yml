@@ -1,0 +1,5 @@
+name: hc_announce
+type: module
+description: 'Module daffichage danonce'
+package: Custom
+core: 8.x
