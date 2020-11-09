@@ -1,0 +1,5 @@
+name: Contrat
+description: Action réalisé sur des contrat
+package: Custom
+type: module
+core: 8.x

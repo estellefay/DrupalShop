@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Contains contrat.module.
+ */
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
+
+/**
+ * Implements hook_help().
+ */
+function contrat_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ausy_contrat module.
+    case 'help.page.contrat':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module qui permet de gér�er des fonctionalités des contrats') . '</p>';
+
+      return $output;
+
+    default:
+  }
+}
+
+// /**
+//  * Implements hook_theme().
+//  * Retourne ce them epour le controller
+//  */
+// function ausy_contrat_theme() {
+//   return [
+//     'ausy_contrat' => [
+//       'render element' => 'children',
+//       'variables' => array('contrats' => NULL)
+//     ],
+//   ];
+// }
+
+// /**
+//  * Ajouter un field à la views
+//  */
+
+// function ausy_contrat_views_default_views_alter (&$views) {
+//   kint($views);
+// }
+
+ /**
+  * Implements hook_form_alter().
+  * Calculer le prix total
+ */
+function contrat_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
+  // Vérifier qu'il s'agit bien d'un formulaire contrat
+  if($form_id === "node_contrat_form" || $form_id === "node_contrat_edit_form") {
+   // calcule le total
+   //kint($form['field_contrat_produit']);
+    $form['field_contrat-produit']['widget']['#ajax'] = array(
+      'callback' => 'calculateTotal',
+      'event' => 'change',
+    );
+  }
+}
+/**
+ * Callback calcule le total du contrat
+ */
+function calculateTotal(array &$form, FormStateInterface $form_state) {
+    dump('toto'); 
+}
+
+// /**
+//  * Callback calcule la TVA callback prix
+//  */
+// function updateTTCByPRIX(array &$form, FormStateInterface $form_state) {
+//   $response = new AjaxResponse();
+
+//   // vérifier si les valeurs existent sinon remplacer par 0
+//   $HT = !empty($form['field_produit_prix']['widget'][0]['value']['#value']) ? $form['field_produit_prix']['widget'][0]['value']['#value']: 0;
+//   $TVA = $form['field_produit_tva']['widget']['#value'] ? $form['field_produit_tva']['widget']['#value']: 0;
+
+//   // Calculer la TVA
+//   $TTC = ($HT * $TVA) / 100;
+//   $TTC = $TTC + $HT;
+//   // Arrondir
+//   $TTC = round($TTC, 2);
+//   $form['field_produit_prix_ttc']['widget'][0]['value']['#value'] = $TTC;
+//   $response->addCommand(new ReplaceCommand('.field--name-field-produit-prix-ttc', $form['field_produit_prix_ttc']));
+//   return $response; 
+// }

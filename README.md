@@ -66,3 +66,7 @@ You are done!
 Visit: http://localhost:8082
 
 Enjoy :-)
+
+## Fonctionalités du projet
+- Module produit
+    - Calcule le TTC au formulaire
